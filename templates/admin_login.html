@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login - SmartPass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>SmartPass Admin Login</h1>
+
+    <form method="POST">
+        <h2>Administrator Access</h2>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="Admin email" required>
+
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Admin password" required>
+
+        <button type="submit">Admin Login</button>
+    </form>
+
+    <p><a href="/">Back to Home</a></p>
+
+</body>
+</html>

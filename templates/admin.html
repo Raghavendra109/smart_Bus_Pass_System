@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Pass Admin Dashboard</title>
+</head>
+<body>
+
+    <h1>Bus Pass Admin Dashboard</h1>
+    <a href="{{ url_for('admin_logout') }}">
+    <button type="button">Admin Logout</button>
+</a>
+
+    <h2>Submitted Applications</h2>
+
+    {% if passes %}
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>ID</th>
+            <th>User ID</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Pass Type</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for pass in passes %}
+        <tr>
+            <td>{{ pass[0] }}</td>
+            <td>{{ pass[1] }}</td>
+            <td>{{ pass[2] }}</td>
+            <td>{{ pass[3] }}</td>
+            <td>{{ pass[4] }}</td>
+            <td>Rs. {{ pass[5] }}</td>
+            <td>{{ pass[6] }}</td>
+
+            <td>
+                <form action="/update_status/{{ pass[0] }}/Approved" method="POST">
+                    <button type="submit">Approve</button>
+                </form>
+
+                <form action="/update_status/{{ pass[0] }}/Rejected" method="POST">
+                    <button type="submit">Reject</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+    <p>No applications found.</p>
+    {% endif %}
+
+</body>
+</html>

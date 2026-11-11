@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPass Digital Bus Pass</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            padding: 30px;
+        }
+
+        .pass-card {
+            max-width: 450px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            border-top: 8px solid #2563eb;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2563eb;
+        }
+
+        .pass-id {
+            text-align: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .details {
+            line-height: 2;
+            margin-top: 20px;
+        }
+
+        .paid {
+            color: green;
+            font-weight: bold;
+        }
+
+        .qr {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        @media print {
+            button, .home-link {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="pass-card">
+
+    <h1>SMARTPASS</h1>
+    <h2 style="text-align:center;">DIGITAL BUS PASS</h2>
+
+    <p class="pass-id">Pass ID: SP-{{ bus_pass[0] }}</p>
+
+    <div class="details">
+
+        <p><strong>Passenger:</strong> {{ bus_pass[1] }}</p>
+
+        <p><strong>Source:</strong> {{ bus_pass[2] }}</p>
+
+        <p><strong>Destination:</strong> {{ bus_pass[3] }}</p>
+
+        <p><strong>Pass Type:</strong> {{ bus_pass[4] }}</p>
+
+        <p><strong>Amount:</strong> ₹{{ bus_pass[5] }}</p>
+
+        <p><strong>Payment Status:</strong>
+            <span class="paid">{{ bus_pass[6] }}</span>
+        </p>
+
+        <p><strong>Payment Date:</strong> {{ bus_pass[7] }}</p>
+
+    </div>
+
+    <div class="qr">
+        <h3>Bus Pass QR Code</h3>
+
+        <img
+    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ url_for('verify_pass', pass_id=bus_pass[0], _external=True) | urlencode }}"
+    alt="Bus Pass QR Code">
+    </div>
+
+    <br>
+
+    <center>
+        <button onclick="window.print()">Download / Print Pass</button>
+    </center>
+
+</div>
+
+</body>
+</html>

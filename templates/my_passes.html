@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Bus Passes</title>
+</head>
+<body>
+
+    <h1>My Bus Pass Applications</h1>
+    <a href="{{ url_for('logout') }}">
+    <button>Logout</button>
+</a>
+
+<br><br>
+
+<a href="{{ url_for('home') }}">Home</a>
+    {% if passes %}
+
+    <table border="1" cellpadding="10">
+    <tr>
+        <th>ID</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>Pass Type</th>
+        <th>Price</th>
+        <th>Status</th>
+        <th>Payment Status</th>
+        <th>Payment Method</th>
+        <th>Payment Date</th>
+        <th>Digital Pass</th>
+    </tr>
+
+    {% for pass in passes %}
+    <tr>
+        {% for item in pass %}
+        <td>{{ item }}</td>
+        {% endfor %}
+
+        <td>
+            {% if pass[6] == 'Paid' %}
+                <a href="{{ url_for('digital_pass', pass_id=pass[0]) }}">
+                    <button type="button">View Digital Pass</button>
+                </a>
+            {% else %}
+                <span>Payment Pending</span>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+    {% else %}
+    <p>No bus pass applications found.</p>
+    {% endif %}
+
+</body>
+</html>

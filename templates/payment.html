@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPass | Payment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="payment-container">
+
+    <h1>Complete Your Payment</h1>
+    <p>Secure SmartPass Payment</p>
+
+    <div class="payment-summary">
+        <h3>Bus Pass Details</h3>
+
+        <p><strong>Source:</strong> {{ bus_pass[0] }}</p>
+        <p><strong>Destination:</strong> {{ bus_pass[1] }}</p>
+        <p><strong>Pass Type:</strong> {{ bus_pass[2] }}</p>
+
+        <h2>Amount: ₹{{ bus_pass[3] }}</h2>
+    </div>
+
+    <form method="POST">
+
+        <h3>Select Payment Method</h3>
+
+        <label>
+            <input type="radio" name="payment_method" value="UPI" required>
+            UPI
+        </label>
+
+        <label>
+            <input type="radio" name="payment_method" value="Card">
+            Debit / Credit Card
+        </label>
+
+        <label>
+            <input type="radio" name="payment_method" value="Net Banking">
+            Net Banking
+        </label>
+
+        <button type="submit" class="pay-button">
+            Pay Now
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

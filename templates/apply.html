@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Apply for Bus Pass</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <h1>Cloud Bus Pass System</h1>
+
+    <h2>Apply for Your Bus Pass</h2>
+
+    <form action="/apply" method="POST">
+
+        <p>Source</p>
+        <input type="text" name="source"
+               placeholder="Enter starting location" required>
+
+        <p>Destination</p>
+        <input type="text" name="destination"
+               placeholder="Enter destination" required>
+
+        <p>Pass Type</p>
+
+        <select name="pass_type" required>
+            <option value="">Select Pass Type</option>
+            <option value="Daily">Daily Pass</option>
+            <option value="Monthly">Monthly Pass</option>
+            <option value="Quarterly">Quarterly Pass</option>
+        </select>
+
+        <br><br>
+
+        <button type="submit">Apply Now</button>
+
+    </form>
+
+</body>
+</html>

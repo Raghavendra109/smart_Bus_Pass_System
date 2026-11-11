@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPass | Verify Bus Pass</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2ff;
+            padding: 30px;
+        }
+
+        .verification-card {
+            max-width: 450px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+        }
+
+        h1 {
+            color: #2563eb;
+        }
+
+        .valid {
+            color: green;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .details {
+            text-align: left;
+            line-height: 2;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="verification-card">
+
+    <h1>SMARTPASS</h1>
+
+    <p class="valid">✓ VALID BUS PASS</p>
+
+    <div class="details">
+
+        <p><strong>Pass ID:</strong> SP-{{ bus_pass[0] }}</p>
+
+        <p><strong>Source:</strong> {{ bus_pass[1] }}</p>
+
+        <p><strong>Destination:</strong> {{ bus_pass[2] }}</p>
+
+        <p><strong>Pass Type:</strong> {{ bus_pass[3] }}</p>
+
+        <p><strong>Payment:</strong> {{ bus_pass[4] }}</p>
+
+        <p><strong>Application Status:</strong> {{ bus_pass[5] }}</p>
+
+    </div>
+
+</div>
+
+</body>
+</html>
