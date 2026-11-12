@@ -1,58 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bus Pass Admin Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartPass | Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
+<body class="admin-dashboard">
 
-    <h1>Bus Pass Admin Dashboard</h1>
-    <a href="{{ url_for('admin_logout') }}">
-    <button type="button">Admin Logout</button>
-</a>
+<header class="admin-header">
+    <div class="admin-brand">
+        <span class="brand-icon">🚌</span>
+        <span>SMARTPASS</span>
+    </div>
 
-    <h2>Submitted Applications</h2>
+    <div class="admin-header-right">
+        <span class="admin-label">Administrator</span>
+        <a href="{{ url_for('admin_logout') }}" class="logout-btn">Logout</a>
+    </div>
+</header>
 
-    {% if passes %}
+<main class="admin-container">
 
-    <table border="1" cellpadding="10">
-        <tr>
-            <th>ID</th>
-            <th>User ID</th>
-            <th>Source</th>
-            <th>Destination</th>
-            <th>Pass Type</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+    <section class="admin-welcome">
+        <div>
+            <p class="admin-subtitle">ADMINISTRATION PANEL</p>
+            <h1>Dashboard Overview</h1>
+            <p>Manage bus pass applications and passenger requests.</p>
+        </div>
+        <div class="admin-date" id="currentDate"></div>
+    </section>
 
-        {% for pass in passes %}
-        <tr>
-            <td>{{ pass[0] }}</td>
-            <td>{{ pass[1] }}</td>
-            <td>{{ pass[2] }}</td>
-            <td>{{ pass[3] }}</td>
-            <td>{{ pass[4] }}</td>
-            <td>Rs. {{ pass[5] }}</td>
-            <td>{{ pass[6] }}</td>
+    {% set pending = passes | selectattr('6', 'equalto', 'Pending') | list %}
 
-            <td>
-                <form action="/update_status/{{ pass[0] }}/Approved" method="POST">
-                    <button type="submit">Approve</button>
-                </form>
+    <section class="admin-stats">
 
-                <form action="/update_status/{{ pass[0] }}/Rejected" method="POST">
-                    <button type="submit">Reject</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
+        <div class="stat-card">
+            <div class="stat-icon blue">📋</div>
+            <p>Total Applications</p>
+            <h2>{{ passes|length }}</h2>
+        </div>
 
-    </table>
+        <div class="stat-card">
+            <div class="stat-icon orange">⏳</div>
+            <p>Pending Applications</p>
+            <h2>{{ pending|length }}</h2>
+        </div>
 
-    {% else %}
-    <p>No applications found.</p>
-    {% endif %}
+        <div class="stat-card">
+            <div class="stat-icon green">✓</div>
+            <p>Approved Applications</p>
+            <h2>{{ passes|selectattr('6', 'equalto', 'Approved')|list|length }}</h2>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon red">✕</div>
+            <p>Rejected Applications</p>
+            <h2>{{ passes|selectattr('6', 'equalto', 'Rejected')|list|length }}</h2>
+        </div>
+
+    </section>
+
+    <section class="admin-table-section">
+
+        <div class="table-heading">
+            <div>
+                <h2>Bus Pass Applications</h2>
+                <p>Review and manage passenger applications.</p>
+            </div>
+
+            <input type="text" id="adminSearch"
+                   placeholder="Search applications...">
+        </div>
+
+        {% if passes %}
+
+        <div class="admin-table-wrapper">
+            <table class="admin-table" id="applicationsTable">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Source</th>
+                        <th>Destination</th>
+                        <th>Pass Type</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for pass in passes %}
+                    <tr>
+                        <td>#{{ pass[0] }}</td>
+                        <td>{{ pass[1] }}</td>
+                        <td>{{ pass[2] }}</td>
+                        <td>{{ pass[3] }}</td>
+                        <td>{{ pass[4] }}</td>
+                        <td>₹{{ pass[5] }}</td>
+
+                        <td>
+                            <span class="status-badge {{ pass[6]|lower }}">
+                                {{ pass[6] }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {% if pass[6] == 'Pending' %}
+
+                            <div class="action-buttons">
+
+                                <form action="/update_status/{{ pass[0] }}/Approved"
+                                      method="POST">
+                                    <button class="approve-btn" type="submit">
+                                        Approve
+                                    </button>
+                                </form>
+
+                                <form action="/update_status/{{ pass[0] }}/Rejected"
+                                      method="POST">
+                                    <button class="reject-btn" type="submit">
+                                        Reject
+                                    </button>
+                                </form>
+
+                            </div>
+
+                            {% else %}
+                                <span class="reviewed-text">Reviewed</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+            <div>📭</div>
+            <h3>No applications yet</h3>
+            <p>New bus pass applications will appear here.</p>
+        </div>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+<script>
+document.getElementById("currentDate").textContent =
+    new Date().toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+document.getElementById("adminSearch").addEventListener("input", function () {
+    let search = this.value.toLowerCase();
+
+    document.querySelectorAll("#applicationsTable tbody tr").forEach(row => {
+        row.style.display =
+            row.textContent.toLowerCase().includes(search) ? "" : "none";
+    });
+});
+</script>
 
 </body>
 </html>

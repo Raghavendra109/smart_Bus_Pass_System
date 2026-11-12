@@ -428,3 +428,358 @@ footer p {
     background: #1e40af;
     transform: translateY(-2px);
 }
+
+/* =================================
+   SMARTPASS ADMIN DASHBOARD
+================================= */
+
+.admin-dashboard {
+    background: #f1f5fb;
+    min-height: 100vh;
+}
+
+.admin-header {
+    background: #ffffff;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.06);
+}
+
+.admin-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #1746a2;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.brand-icon {
+    font-size: 30px;
+}
+
+.admin-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-label {
+    color: #475569;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #ef4444;
+    color: white;
+    padding: 11px 20px;
+    border-radius: 8px;
+}
+
+.logout-btn:hover {
+    background: #dc2626;
+    color: white;
+}
+
+.admin-container {
+    max-width: 1450px;
+    margin: auto;
+    padding: 40px 5%;
+}
+
+.admin-welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.admin-welcome h1 {
+    color: #123b78;
+    font-size: 32px;
+    margin: 8px 0;
+}
+
+.admin-welcome p {
+    text-align: left;
+    margin: 5px 0;
+    color: #64748b;
+}
+
+.admin-subtitle {
+    color: #2563eb !important;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.admin-date {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: #475569;
+    font-weight: 600;
+}
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.stat-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+    border: 1px solid #e8edf5;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.stat-card p {
+    text-align: left;
+    margin: 12px 0 5px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.stat-card h2 {
+    text-align: left;
+    margin: 0;
+    font-size: 30px;
+    color: #123b78;
+}
+
+.stat-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.stat-icon.blue {
+    background: #dbeafe;
+}
+
+.stat-icon.orange {
+    background: #ffedd5;
+}
+
+.stat-icon.green {
+    background: #dcfce7;
+}
+
+.stat-icon.red {
+    background: #fee2e2;
+}
+
+.admin-table-section {
+    background: white;
+    padding: 28px;
+    border-radius: 16px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.04);
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.table-heading h2 {
+    text-align: left;
+    margin: 0;
+    color: #123b78;
+}
+
+.table-heading p {
+    text-align: left;
+    margin: 5px 0;
+}
+
+#adminSearch {
+    max-width: 280px;
+    margin: 0;
+    background: #f8fafc;
+}
+
+.admin-table-wrapper {
+    overflow-x: auto;
+}
+
+.admin-table {
+    width: 100%;
+    margin: 0;
+    border-collapse: collapse;
+    box-shadow: none;
+    min-width: 850px;
+}
+
+.admin-table th {
+    background: #1746a2;
+    padding: 17px 12px;
+    white-space: nowrap;
+}
+
+.admin-table td {
+    padding: 17px 12px;
+    font-size: 13px;
+}
+
+.admin-table tbody tr:hover {
+    background: #f1f6ff;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #e2e8f0;
+    color: #475569;
+}
+
+.status-badge.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.approved {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.admin-dashboard .action-buttons form {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.admin-dashboard .action-buttons button {
+    margin: 2px;
+    padding: 9px 12px;
+    font-size: 12px;
+}
+
+.approve-btn {
+    background: #16a34a;
+}
+
+.approve-btn:hover {
+    background: #15803d;
+}
+
+.reject-btn {
+    background: #dc2626;
+}
+
+.reject-btn:hover {
+    background: #b91c1c;
+}
+
+.reviewed-text {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 55px 15px;
+}
+
+.empty-state div {
+    font-size: 45px;
+}
+
+.empty-state h3 {
+    color: #123b78;
+    margin: 15px 0;
+}
+
+.empty-state p {
+    color: #64748b;
+}
+
+@media(max-width: 900px) {
+    .admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 600px) {
+    .admin-header {
+        padding: 15px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .admin-label {
+        display: none;
+    }
+
+    .admin-container {
+        padding: 25px 12px;
+    }
+
+    .admin-welcome {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .admin-welcome h1 {
+        font-size: 25px;
+    }
+
+    .admin-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .admin-table-section {
+        padding: 15px;
+    }
+
+    .table-heading {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #adminSearch {
+        max-width: 100%;
+    }
+}
+
