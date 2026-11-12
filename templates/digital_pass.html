@@ -6,60 +6,144 @@
     <title>SmartPass Digital Bus Pass</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #eef2ff;
-            padding: 30px;
+            background: #e8eef7;
+            padding: 30px 15px;
+            margin: 0;
         }
 
         .pass-card {
-            max-width: 450px;
+            max-width: 480px;
             margin: auto;
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-            border-top: 8px solid #2563eb;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
         }
 
-        h1 {
+        .pass-header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
             text-align: center;
-            color: #2563eb;
+            padding: 25px;
+        }
+
+        .pass-header h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 2px;
+        }
+
+        .pass-header p {
+            margin-bottom: 0;
+            letter-spacing: 2px;
         }
 
         .pass-id {
             text-align: center;
+            background: #eff6ff;
+            color: #1e40af;
+            padding: 14px;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 18px;
         }
 
         .details {
-            line-height: 2;
-            margin-top: 20px;
+            padding: 20px 28px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 13px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .detail-row strong {
+            color: #475569;
+        }
+
+        .detail-row span {
+            color: #0f172a;
+            font-weight: bold;
+            text-align: right;
+            overflow-wrap: anywhere;
         }
 
         .paid {
-            color: green;
-            font-weight: bold;
+            color: #15803d !important;
         }
 
         .qr {
             text-align: center;
-            margin-top: 20px;
+            padding: 15px 20px 25px;
+        }
+
+        .qr img {
+            width: 180px;
+            max-width: 100%;
+            border: 8px solid #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .qr p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .pass-footer {
+            background: #f1f5f9;
+            padding: 18px;
+            text-align: center;
         }
 
         button {
             background: #2563eb;
             color: white;
-            padding: 12px 25px;
+            padding: 13px 25px;
             border: none;
-            border-radius: 7px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        @media(max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+
+            .details {
+                padding: 15px;
+            }
+
+            .pass-header h1 {
+                font-size: 25px;
+            }
         }
 
         @media print {
-            button, .home-link {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            button {
                 display: none;
+            }
+
+            .pass-card {
+                box-shadow: none;
             }
         }
     </style>
@@ -69,44 +153,67 @@
 
 <div class="pass-card">
 
-    <h1>SMARTPASS</h1>
-    <h2 style="text-align:center;">DIGITAL BUS PASS</h2>
+    <div class="pass-header">
+        <h1>SMARTPASS</h1>
+        <p>DIGITAL BUS PASS</p>
+    </div>
 
-    <p class="pass-id">Pass ID: SP-{{ bus_pass[0] }}</p>
+    <div class="pass-id">
+        PASS ID: SP-{{ bus_pass[0] }}
+    </div>
 
     <div class="details">
 
-        <p><strong>Passenger:</strong> {{ bus_pass[1] }}</p>
+        <div class="detail-row">
+            <strong>Passenger</strong>
+            <span>{{ bus_pass[1] }}</span>
+        </div>
 
-        <p><strong>Source:</strong> {{ bus_pass[2] }}</p>
+        <div class="detail-row">
+            <strong>Source</strong>
+            <span>{{ bus_pass[2] }}</span>
+        </div>
 
-        <p><strong>Destination:</strong> {{ bus_pass[3] }}</p>
+        <div class="detail-row">
+            <strong>Destination</strong>
+            <span>{{ bus_pass[3] }}</span>
+        </div>
 
-        <p><strong>Pass Type:</strong> {{ bus_pass[4] }}</p>
+        <div class="detail-row">
+            <strong>Pass Type</strong>
+            <span>{{ bus_pass[4] }}</span>
+        </div>
 
-        <p><strong>Amount:</strong> ₹{{ bus_pass[5] }}</p>
+        <div class="detail-row">
+            <strong>Amount</strong>
+            <span>₹{{ bus_pass[5] }}</span>
+        </div>
 
-        <p><strong>Payment Status:</strong>
+        <div class="detail-row">
+            <strong>Payment Status</strong>
             <span class="paid">{{ bus_pass[7] }}</span>
-        </p>
+        </div>
 
-        <p><strong>Payment Date:</strong> {{ bus_pass[8] }}</p>
+        <div class="detail-row">
+            <strong>Payment Date</strong>
+            <span>{{ bus_pass[8] }}</span>
+        </div>
 
     </div>
 
     <div class="qr">
-        <h3>Bus Pass QR Code</h3>
+        <h3>Scan to Verify Pass</h3>
 
         <img
-    src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ url_for('verify_pass', pass_id=bus_pass[0], _external=True) | urlencode }}"
-    alt="Bus Pass QR Code">
+            src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ url_for('verify_pass', pass_id=bus_pass[0], _external=True) | urlencode }}"
+            alt="Bus Pass QR Code">
+
+        <p>Scan this QR code to verify your bus pass.</p>
     </div>
 
-    <br>
-
-    <center>
+    <div class="pass-footer">
         <button onclick="window.print()">Download / Print Pass</button>
-    </center>
+    </div>
 
 </div>
 
