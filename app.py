@@ -154,7 +154,9 @@ def digital_pass(pass_id):
         """SELECT bus_passes.id, users.name,
         bus_passes.source, bus_passes.destination,
         bus_passes.pass_type, bus_passes.price,
-        bus_passes.payment_status, bus_passes.payment_date
+        bus_passes.status,
+        bus_passes.payment_status,
+        bus_passes.payment_date
         FROM bus_passes
         JOIN users ON bus_passes.user_id = users.id
         WHERE bus_passes.id = ? AND bus_passes.user_id = ?""",
@@ -166,11 +168,16 @@ def digital_pass(pass_id):
     if not bus_pass:
         return "Bus pass not found!", 404
 
-    if bus_pass[6] != 'Paid':
+    if bus_pass[6] == 'Rejected':
+        return "Your bus pass application has been rejected by the admin.", 403
+
+    if bus_pass[6] != 'Approved':
+        return "Your bus pass is waiting for admin approval.", 403
+
+    if bus_pass[7] != 'Paid':
         return "Payment not completed!", 403
 
     return render_template('digital_pass.html', bus_pass=bus_pass)
-
 
 
 @app.route('/verify_pass/<int:pass_id>')

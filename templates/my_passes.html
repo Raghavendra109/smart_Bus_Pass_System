@@ -2,54 +2,93 @@
 <html>
 <head>
     <title>My Bus Passes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
 
-    <h1>My Bus Pass Applications</h1>
-    <a href="{{ url_for('logout') }}">
-    <button>Logout</button>
-</a>
+<body class="user-dashboard">
 
-<br><br>
+    <div class="user-header">
+        <h1>My Bus Pass Applications</h1>
 
-<a href="{{ url_for('home') }}">Home</a>
+        <div class="user-actions">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
     {% if passes %}
+    <div class="user-table-container">
 
-    <table border="1" cellpadding="10">
-    <tr>
-        <th>ID</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>Pass Type</th>
-        <th>Price</th>
-        <th>Status</th>
-        <th>Payment Status</th>
-        <th>Payment Method</th>
-        <th>Payment Date</th>
-        <th>Digital Pass</th>
-    </tr>
+        <table class="user-table">
+            <tr>
+                <th>ID</th>
+                <th>Source</th>
+                <th>Destination</th>
+                <th>Pass Type</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Payment Status</th>
+                <th>Payment Method</th>
+                <th>Payment Date</th>
+                <th>Digital Pass</th>
+            </tr>
 
-    {% for pass in passes %}
-    <tr>
-        {% for item in pass %}
-        <td>{{ item }}</td>
-        {% endfor %}
+            {% for pass in passes %}
+            <tr>
+                <td>{{ pass[0] }}</td>
+                <td>{{ pass[1] }}</td>
+                <td>{{ pass[2] }}</td>
+                <td>{{ pass[3] }}</td>
+                <td>₹{{ pass[4] }}</td>
 
-        <td>
-            {% if pass[6] == 'Paid' %}
-                <a href="{{ url_for('digital_pass', pass_id=pass[0]) }}">
-                    <button type="button">View Digital Pass</button>
-                </a>
-            {% else %}
-                <span>Payment Pending</span>
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+                <td>
+                    <span class="user-status status-{{ pass[5]|lower }}">
+                        {{ pass[5] }}
+                    </span>
+                </td>
+
+                <td>
+                    {% if pass[6] == 'Paid' %}
+                        <span class="payment-paid">Paid</span>
+                    {% else %}
+                        <span class="payment-pending">Pending</span>
+                    {% endif %}
+                </td>
+
+                <td>{{ pass[7] or '-' }}</td>
+                <td>{{ pass[8] or '-' }}</td>
+
+                <td>
+                    {% if pass[5] == 'Rejected' %}
+                        <span class="rejection-message">
+                            Your bus pass application has been rejected by the admin.
+                        </span>
+
+                    {% elif pass[5] != 'Approved' %}
+                        <span class="waiting-message">
+                            Waiting for admin approval.
+                        </span>
+
+                    {% elif pass[6] != 'Paid' %}
+                        <span class="waiting-message">
+                            Approved! Please complete your payment.
+                        </span>
+
+                    {% else %}
+                        <a class="digital-pass-btn"
+                           href="{{ url_for('digital_pass', pass_id=pass[0]) }}">
+                            View Digital Pass
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
 
     {% else %}
-    <p>No bus pass applications found.</p>
+        <p>No bus pass applications found.</p>
     {% endif %}
 
 </body>
