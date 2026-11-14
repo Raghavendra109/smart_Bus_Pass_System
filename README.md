@@ -77,3 +77,10 @@ The payment functionality is simulated for demonstration purposes. No real finan
 ## Internship
 
 Developed as part of the CodeAlpha Cloud Computing Internship – Task 3.
+
+
+## Admin Login
+
+- Admin Email: admin@smartpass.com
+- Admin Password:Admin@123
+- Admin Dashboard: http://13.55.92.6/admin-login
