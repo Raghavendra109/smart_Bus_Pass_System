@@ -905,3 +905,87 @@ footer p {
         gap: 15px;
     }
 }
+/* SMARTPASS HOMEPAGE - MOBILE RESPONSIVE */
+
+@media (max-width: 600px) {
+
+    .navbar {
+        padding: 16px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .navbar nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .navbar nav a {
+        font-size: 13px;
+        padding: 6px;
+    }
+
+    .navbar .nav-button {
+        text-align: center;
+    }
+
+    .hero {
+        padding: 40px 16px;
+        gap: 28px;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+        line-height: 1.2;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hero-buttons a {
+        text-align: center;
+    }
+
+    .hero-info {
+        line-height: 2;
+    }
+
+    .hero-image {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .bus-card {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .features,
+    .how-section,
+    .cta {
+        padding: 40px 16px;
+    }
+
+    .section-heading h2 {
+        font-size: 25px;
+    }
+
+    .feature-container,
+    .steps {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    footer {
+        padding: 28px 16px;
+    }
+}
